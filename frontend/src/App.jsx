@@ -1,76 +1,32 @@
-import { useState } from "react";
-import "./App.css";
-import { loginUser } from "./services/api";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Upload from "./pages/Upload";
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await loginUser(username, password);
-
-      console.log(response.data);
-
-      if (response.data.success) {
-        alert("Login successful!");
-      } else {
-        alert("Invalid username or password");
-      }
-
-    } catch (error) {
-      console.error(error);
-      alert("Unable to connect to the server");
-    }
-  };
 
   return (
-      <div className="login-container">
 
-        <div className="login-card">
+      <BrowserRouter>
 
-          <h1>CodeMorph</h1>
+        <Routes>
 
-          <p className="subtitle">
-            Java Project Migration & Analysis
-          </p>
+          <Route
+              path="/"
+              element={<Login />}
+          />
 
-          <form onSubmit={handleLogin}>
+          <Route
+              path="/upload"
+              element={<Upload />}
+          />
 
-            <div className="input-group">
-              <label>Username</label>
+        </Routes>
 
-              <input
-                  type="text"
-                  placeholder="Enter your username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
+      </BrowserRouter>
 
-            <div className="input-group">
-              <label>Password</label>
-
-              <input
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <button type="submit">
-              Login
-            </button>
-
-          </form>
-
-        </div>
-
-      </div>
   );
+
 }
 
 export default App;
