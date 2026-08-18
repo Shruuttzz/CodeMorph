@@ -27,6 +27,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testAnnotationProcessor 'org.projectlombok:lombok'
+    implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.26.2'
 }
 
 tasks.named('test') {

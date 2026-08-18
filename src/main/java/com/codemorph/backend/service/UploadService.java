@@ -6,11 +6,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @Service
 public class UploadService {
+
+    private final AstService astService;
+
+    public UploadService(AstService astService) {
+        this.astService = astService;
+    }
 
     public ProjectSummary processZip(MultipartFile file) throws IOException {
 
@@ -52,6 +60,12 @@ public class UploadService {
             projectName = projectName.substring(0, projectName.length() - 4);
         }
 
-        return new ProjectSummary(projectName, javaFiles);
+        // Run AST analysis on the extracted repo
+        List<Map<String, Object>> astResults = astService.analyzeRepository(tempDir);
+
+        ProjectSummary summary = new ProjectSummary(projectName, javaFiles);
+        summary.setAstAnalysis(astResults);
+
+        return summary;
     }
 }
