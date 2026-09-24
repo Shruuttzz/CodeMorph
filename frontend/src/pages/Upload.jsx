@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { uploadProject } from "../services/api";
 
+
 function Upload() {
+    const navigate = useNavigate();
 
     const [file, setFile] = useState(null);
     const [result, setResult] = useState(null);
@@ -112,6 +115,17 @@ function Upload() {
                         </tbody>
                     </table>
 
+                    <button
+                        className="upload-btn"
+                        onClick={() =>
+                            navigate("/dependency-graph", {
+                                state: { result }
+                            })
+                        }
+                        style={{ marginTop: "40px" }}
+                    >
+                        View Dependency Graph →
+                    </button>
                 </div>
             )}
 

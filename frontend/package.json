@@ -13,7 +13,9 @@
     "axios": "^1.19.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-router-dom": "^7.18.2"
+    "react-router-dom": "^7.18.2",
+    "vis-data": "^8.0.5",
+    "vis-network": "^10.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
