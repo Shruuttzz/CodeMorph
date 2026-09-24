@@ -8,6 +8,7 @@ public class ProjectSummary {
     private String projectName;
     private int javaFileCount;
     private List<Map<String, Object>> astAnalysis;
+    private Map<String, Object> dependencyGraph;
 
     public ProjectSummary() {
     }
@@ -39,5 +40,12 @@ public class ProjectSummary {
 
     public void setAstAnalysis(List<Map<String, Object>> astAnalysis) {
         this.astAnalysis = astAnalysis;
+    }
+    public Map<String, Object> getDependencyGraph() {
+        return dependencyGraph;
+    }
+
+    public void setDependencyGraph(Map<String, Object> dependencyGraph) {
+        this.dependencyGraph = dependencyGraph;
     }
 }

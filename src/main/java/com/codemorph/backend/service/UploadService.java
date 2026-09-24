@@ -15,11 +15,12 @@ import java.util.zip.ZipInputStream;
 public class UploadService {
 
     private final AstService astService;
+    private final DependencyGraphService dependencyGraphService;
 
-    public UploadService(AstService astService) {
+    public UploadService(AstService astService, DependencyGraphService dependencyGraphService) {
         this.astService = astService;
+        this.dependencyGraphService = dependencyGraphService;
     }
-
     public ProjectSummary processZip(MultipartFile file) throws IOException {
 
         // Create a temporary directory
@@ -62,9 +63,11 @@ public class UploadService {
 
         // Run AST analysis on the extracted repo
         List<Map<String, Object>> astResults = astService.analyzeRepository(tempDir);
+        Map<String, Object> graph = dependencyGraphService.buildGraph(tempDir);
 
         ProjectSummary summary = new ProjectSummary(projectName, javaFiles);
         summary.setAstAnalysis(astResults);
+        summary.setDependencyGraph(graph);
 
         return summary;
     }
