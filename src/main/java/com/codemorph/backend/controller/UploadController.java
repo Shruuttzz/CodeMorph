@@ -1,5 +1,4 @@
 package com.codemorph.backend.controller;
-
 import com.codemorph.backend.model.ProjectSummary;
 import com.codemorph.backend.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +19,9 @@ public class UploadController {
             @RequestParam("file") MultipartFile file) {
 
         try {
-
             ProjectSummary summary = uploadService.processZip(file);
-
             return ResponseEntity.ok(summary);
-
         } catch (Exception e) {
-
             return ResponseEntity.internalServerError().build();
         }
     }

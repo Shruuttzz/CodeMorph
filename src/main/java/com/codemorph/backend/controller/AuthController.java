@@ -1,7 +1,5 @@
 package com.codemorph.backend.controller;
-
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 @RestController
@@ -18,7 +16,6 @@ public class AuthController {
 
         // Temporary login credentials
         if ("admin".equals(username) && "1234".equals(password)) {
-
             return Map.of(
                     "success", true,
                     "message", "Login successful"

@@ -9,35 +9,49 @@ public class ProjectSummary {
     private int javaFileCount;
     private List<Map<String, Object>> astAnalysis;
     private Map<String, Object> dependencyGraph;
+    private List<ComponentAnalysis> componentAnalyses;
+    private MigrationSummary migrationSummary;
 
     public ProjectSummary() {
     }
-
     public ProjectSummary(String projectName, int javaFileCount) {
         this.projectName = projectName;
         this.javaFileCount = javaFileCount;
     }
 
+    public List<ComponentAnalysis> getComponentAnalyses() {
+        return componentAnalyses;
+    }
+
+    public void setComponentAnalyses(
+            List<ComponentAnalysis> componentAnalyses) {
+        this.componentAnalyses = componentAnalyses;
+    }
+
+    public MigrationSummary getMigrationSummary() {
+        return migrationSummary;
+    }
+
+    public void setMigrationSummary(
+            MigrationSummary migrationSummary) {
+        this.migrationSummary = migrationSummary;
+    }
+
     public String getProjectName() {
         return projectName;
     }
-
     public void setProjectName(String projectName) {
         this.projectName = projectName;
     }
-
     public int getJavaFileCount() {
         return javaFileCount;
     }
-
     public void setJavaFileCount(int javaFileCount) {
         this.javaFileCount = javaFileCount;
     }
-
     public List<Map<String, Object>> getAstAnalysis() {
         return astAnalysis;
     }
-
     public void setAstAnalysis(List<Map<String, Object>> astAnalysis) {
         this.astAnalysis = astAnalysis;
     }

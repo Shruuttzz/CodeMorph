@@ -1,5 +1,4 @@
 package com.codemorph.backend.service;
-
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -22,7 +21,6 @@ public class AstService {
             List<Path> javaFiles = walk
                     .filter(p -> p.toString().endsWith(".java"))
                     .toList();
-
             for (Path file : javaFiles) {
                 results.add(analyzeFile(file));
             }
@@ -49,6 +47,7 @@ public class AstService {
 
             cu.getImports().forEach(imp -> {
                 String importName = imp.getNameAsString();
+
                 if (isActuallyDeprecated(importName)) {
                     deprecatedFound.add(importName);
                 }
@@ -63,7 +62,6 @@ public class AstService {
             fileInfo.put("status", "failed");
             fileInfo.put("error", "Could not parse file — check for syntax errors near the reported location.");
         }
-
         return fileInfo;
     }
 
