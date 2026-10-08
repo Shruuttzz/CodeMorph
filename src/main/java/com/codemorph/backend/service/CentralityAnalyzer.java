@@ -36,7 +36,6 @@ public class CentralityAnalyzer {
         }
 
         for (String node : graph.vertexSet()) {
-
             ComponentAnalysis component =
                     componentMap.get(node);
 
@@ -46,7 +45,6 @@ public class CentralityAnalyzer {
 
             double score =
                     pageRank.getVertexScore(node);
-
             component.setCentrality(score);
         }
     }

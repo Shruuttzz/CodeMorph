@@ -41,9 +41,7 @@ function DependencyGraph({ graphData }) {
             }
         }));
 
-        const data = {
-            nodes,
-            edges
+        const data = {nodes, edges
         };
 
         const options = {

@@ -1,30 +1,50 @@
+/* =========================================================
+   GLOBAL / LOGIN
+========================================================= */
+
 .login-container {
   min-height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   background: #c3f3c3;
 }
 
 .login-card {
   width: 400px;
+
   background: white;
+
   padding: 40px;
+
   border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+
+  box-shadow:
+          0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .login-card h1 {
   text-align: center;
+
   font-size: 32px;
+
   margin-bottom: 8px;
 }
 
 .subtitle {
   text-align: center;
+
   color: #666;
+
   margin-bottom: 30px;
 }
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
 
 .input-group {
   margin-bottom: 20px;
@@ -32,31 +52,52 @@
 
 .input-group label {
   display: block;
+
   margin-bottom: 8px;
+
   font-weight: bold;
 }
 
 .input-group input {
   width: 100%;
+
   padding: 12px;
+
   border: 1px solid #ccc;
+
   border-radius: 6px;
+
   font-size: 15px;
+
+  box-sizing: border-box;
 }
 
 .input-group input:focus {
   outline: none;
+
   border-color: #50ea1c;
 }
 
+
+/* =========================================================
+   GLOBAL BUTTON
+========================================================= */
+
 button {
   width: 100%;
+
   padding: 12px;
+
   border: none;
+
   border-radius: 6px;
+
   background: #46ca33;
+
   color: white;
+
   font-size: 16px;
+
   cursor: pointer;
 }
 
@@ -64,39 +105,64 @@ button:hover {
   background: #4cb537;
 }
 
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
 .upload-page {
   max-width: 1000px;
+
   margin: 60px auto;
+
   padding: 0 20px;
+
   background: #ffffff;
-  font-family: system-ui, -apple-system, sans-serif;
+
+  font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
 }
 
 .upload-card {
   background: white;
+
   border-radius: 12px;
+
   padding: 32px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+  box-shadow:
+          0 2px 12px rgba(0, 0, 0, 0.08);
+
   text-align: center;
 }
 
 .upload-card h1 {
   margin: 0 0 18px 0;
+
   font-size: 28px;
 }
 
 .subtitle {
   color: #000000;
+
   margin-bottom: 24px;
 }
 
 .file-input-wrapper {
   display: block;
+
   border: 2px dashed #ccc;
+
   border-radius: 8px;
+
   padding: 200px;
+
   margin-bottom: 20px;
+
   cursor: pointer;
+
   transition: border-color 0.2s;
 }
 
@@ -110,13 +176,21 @@ button:hover {
 
 .upload-btn {
   background: #46ca33;
+
   color: white;
+
   border: none;
+
   padding: 12px 32px;
+
   border-radius: 8px;
+
   font-size: 16px;
+
   cursor: pointer;
-  transition: background 0.2s;
+
+  transition:
+          background 0.2s;
 }
 
 .upload-btn:hover:not(:disabled) {
@@ -125,32 +199,61 @@ button:hover {
 
 .upload-btn:disabled {
   background: #93c5fd;
+
   cursor: not-allowed;
 }
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
 
 .results-section {
   margin-top: 32px;
 }
 
+.results-title {
+  margin-bottom: 16px;
+
+  color: #111;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
 .summary-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
   gap: 16px;
+
   margin-bottom: 32px;
 }
 
 .stat-card {
   background: white;
+
   border-radius: 10px;
+
   padding: 20px;
+
   text-align: center;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+
+  box-shadow:
+          0 1px 6px rgba(0, 0, 0, 0.06);
 }
 
 .stat-number {
   display: block;
+
   font-size: 32px;
+
   font-weight: 700;
+
   color: #2563eb;
 }
 
@@ -164,44 +267,63 @@ button:hover {
 
 .stat-label {
   display: block;
+
   margin-top: 4px;
+
   color: #666;
+
   font-size: 13px;
 }
 
-.results-title {
-  margin-bottom: 16px;
-  color: #111;
-}
+
+/* =========================================================
+   TABLE
+========================================================= */
 
 .ast-table {
   width: 100%;
+
   border-collapse: collapse;
+
   background: white;
+
   border-radius: 10px;
+
   overflow: hidden;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+
+  box-shadow:
+          0 1px 6px rgba(0, 0, 0, 0.06);
 }
 
 .ast-table th {
   background: #f3f4f6;
+
   text-align: left;
+
   padding: 12px 16px;
+
   font-size: 13px;
+
   text-transform: uppercase;
+
   letter-spacing: 0.03em;
+
   color: #555;
 }
 
 .ast-table td {
   padding: 12px 16px;
+
   border-top: 1px solid #eee;
+
   font-size: 14px;
+
   vertical-align: top;
 }
 
 .file-cell {
   font-weight: 600;
+
   white-space: nowrap;
 }
 
@@ -213,54 +335,95 @@ button:hover {
   background: #fef2f2;
 }
 
+
+/* =========================================================
+   BADGES
+========================================================= */
+
 .badge {
   padding: 4px 10px;
+
   border-radius: 20px;
+
   font-size: 12px;
+
   font-weight: 600;
 }
 
 .badge-success {
   background: #dcfce7;
+
   color: #16a34a;
 }
 
 .badge-error {
   background: #fee2e2;
+
   color: #dc2626;
+}
+
+.badge-warning {
+  background: #fef3c7;
+
+  color: #d97706;
 }
 
 .deprecated-tag {
   color: #dc2626;
+
   font-weight: 500;
 }
 
+
+/* =========================================================
+   GRAPH
+========================================================= */
+
 .graph-wrapper {
   background: white;
+
   border-radius: 10px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+
+  box-shadow:
+          0 1px 6px rgba(0, 0, 0, 0.06);
+
   padding: 12px;
 }
 
 .graph-canvas {
   width: 100%;
+
   height: 500px;
 }
 
 .graph-empty {
   color: #888;
+
   font-style: italic;
+
   padding: 20px;
 }
 
+
+/* =========================================================
+   UPLOAD DROP ZONE
+========================================================= */
+
 .upload-drop-zone {
   border: 2px dotted #999;
+
   border-radius: 12px;
+
   padding: 40px 30px;
+
   margin-top: 30px;
+
   text-align: center;
+
   cursor: pointer;
+
   transition: 0.2s ease;
+
   background: #fafafa;
 }
 
@@ -270,11 +433,13 @@ button:hover {
 
 .upload-drop-zone.drag-active {
   border-color: #32cd32;
+
   background: #f1fff1;
 }
 
 .attachment-icon {
   font-size: 32px;
+
   margin-bottom: 15px;
 }
 
@@ -286,20 +451,1486 @@ button:hover {
   margin-top: 20px;
 }
 
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
 .back-upload-btn {
   display: block !important;
+
   width: 200px !important;
+
   margin: 0 0 30px 0 !important;
+
   padding: 12px 20px !important;
+
   background: #46ca33 !important;
+
   color: white !important;
+
   border: none !important;
+
   border-radius: 8px !important;
+
   font-size: 16px !important;
+
   cursor: pointer !important;
+
   text-align: center !important;
 }
 
 .back-upload-btn:hover {
   background: #4cb537 !important;
+}
+
+
+/* =========================================================
+   OLD MIGRATION ROADMAP SECTION
+   KEPT FOR ANY EXISTING COMPONENT USING IT
+========================================================= */
+
+.roadmap-section {
+  margin-top: 50px;
+
+  padding: 30px;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+
+  box-shadow:
+          0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.roadmap-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: flex-start;
+
+  gap: 30px;
+
+  margin-bottom: 30px;
+}
+
+.roadmap-header h1 {
+  margin: 5px 0 8px;
+
+  font-size: 30px;
+}
+
+.roadmap-header p {
+  color: #666;
+}
+
+.roadmap-eyebrow {
+  color: #46ca33 !important;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+
+  margin: 0 !important;
+}
+
+.roadmap-counters {
+  display: flex;
+
+  gap: 12px;
+}
+
+.roadmap-counters > div {
+  min-width: 90px;
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  background: #f5f7f6;
+
+  text-align: center;
+}
+
+.roadmap-counters strong {
+  display: block;
+
+  font-size: 25px;
+
+  color: #222;
+}
+
+.roadmap-counters span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #666;
+
+  font-size: 12px;
+}
+
+.migration-wave {
+  margin-top: 22px;
+
+  padding: 22px;
+
+  border: 1px solid #e3e6e4;
+
+  border-radius: 12px;
+
+  background: #fafafa;
+}
+
+.migration-wave-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+.wave-label {
+  display: inline-block;
+
+  color: #46ca33;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+.migration-wave-header h2 {
+  margin: 5px 0 0;
+
+  font-size: 22px;
+}
+
+.wave-summary {
+  display: flex;
+
+  gap: 20px;
+
+  color: #666;
+
+  font-size: 13px;
+}
+
+.wave-summary strong {
+  color: #222;
+}
+
+.migration-step-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(280px, 1fr)
+    );
+
+  gap: 15px;
+
+  margin-top: 20px;
+}
+
+.migration-step {
+  background: white;
+
+  border: 1px solid #e2e5e3;
+
+  border-radius: 10px;
+
+  padding: 18px;
+}
+
+.migration-step-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.migration-step-header h3 {
+  margin: 0;
+
+  font-size: 17px;
+}
+
+.roadmap-package {
+  margin: 5px 0 0;
+
+  color: #888;
+
+  font-size: 12px;
+}
+
+.roadmap-status {
+  height: fit-content;
+
+  padding: 5px 9px;
+
+  border-radius: 20px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.roadmap-status.ready,
+.roadmap-status.migrated {
+  background: #dcfce7;
+
+  color: #16a34a;
+}
+
+.roadmap-status.blocked {
+  background: #fee2e2;
+
+  color: #dc2626;
+}
+
+.roadmap-scores {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 8px;
+
+  margin: 18px 0;
+}
+
+.roadmap-score {
+  padding: 10px;
+
+  background: #f5f6f6;
+
+  border-radius: 7px;
+}
+
+.roadmap-score span {
+  display: block;
+
+  color: #777;
+
+  font-size: 11px;
+}
+
+.roadmap-score strong {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 16px;
+}
+
+.roadmap-relations {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 15px;
+
+  padding-top: 14px;
+
+  border-top: 1px solid #eeeeee;
+}
+
+.roadmap-relations h4 {
+  margin: 0 0 7px;
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  color: #777;
+}
+
+.roadmap-relations ul {
+  margin: 0;
+
+  padding-left: 17px;
+
+  font-size: 12px;
+}
+
+.roadmap-reason {
+  margin-top: 15px;
+
+  padding-top: 12px;
+
+  border-top: 1px solid #eeeeee;
+
+  color: #777;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   MIGRATION OVERVIEW → ROADMAP BUTTON
+========================================================= */
+
+.roadmap-navigation {
+  margin-top: 35px;
+
+  padding: 24px 28px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 25px;
+
+  background: #f5f7f6;
+
+  border-radius: 12px;
+}
+
+.roadmap-navigation h2 {
+  margin: 0 0 6px;
+
+  font-size: 21px;
+}
+
+.roadmap-navigation p {
+  margin: 0;
+
+  color: #666;
+
+  font-size: 14px;
+}
+
+.view-roadmap-button {
+  width: auto;
+
+  padding: 13px 20px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #46ca33;
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+}
+
+.view-roadmap-button:hover {
+  background: #35ad25;
+}
+
+
+/* =========================================================
+   =========================================================
+   NEW MIGRATION ROADMAP PAGE
+   =========================================================
+   ========================================================= */
+
+.roadmap-page {
+  width: calc(100% - 60px);
+
+  max-width: 1450px;
+
+  margin: 0 auto;
+
+  padding: 45px 0 80px;
+
+  font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+
+  color: #111827;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.roadmap-page-header {
+  margin-bottom: 15px;
+}
+
+.roadmap-page-header .roadmap-eyebrow {
+  margin: 0 0 6px !important;
+
+  color: #46ca33 !important;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+}
+
+.roadmap-page-header h1 {
+  margin: 0 0 10px;
+
+  font-size: 38px;
+
+  line-height: 1.15;
+}
+
+.roadmap-page-description {
+  max-width: 850px;
+
+  margin: 0;
+
+  color: #667085;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.roadmap-page > .roadmap-back-button {
+  width: auto;
+
+  margin: 22px 0 25px;
+
+  padding: 11px 18px;
+
+  background: #46ca33;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.roadmap-page > .roadmap-back-button:hover {
+  background: #35ad25;
+}
+
+
+/* =========================================================
+   DIAGRAM OUTER CONTAINER
+========================================================= */
+
+.roadmap-diagram-container {
+  width: 100%;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e7e2;
+
+  border-radius: 18px;
+
+  box-shadow:
+          0 5px 22px rgba(0, 0, 0, 0.06);
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   TECHNICAL DOCUMENTATION BUTTON
+   UPPER LEFT
+========================================================= */
+
+.technical-button-wrapper {
+  display: flex;
+
+  justify-content: flex-start;
+
+  padding: 22px 25px 0;
+}
+
+.technical-doc-button {
+  width: auto;
+
+  margin: 0;
+
+  padding: 10px 17px;
+
+  background: #172554;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.technical-doc-button:hover {
+  background: #1e3a8a;
+}
+
+
+/* =========================================================
+   DIAGRAM SCROLL AREA
+========================================================= */
+
+.roadmap-diagram-scroll {
+  width: 100%;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  padding: 50px 45px 75px;
+
+  box-sizing: border-box;
+}
+
+
+/*
+   This inner element is exactly as wide as
+   the complete wave diagram.
+
+   That allows the project root to sit
+   exactly in the center of all waves.
+*/
+
+.roadmap-diagram-inner {
+  width: max-content;
+
+  min-width: 100%;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PROJECT ROOT
+   CENTER OF ROADMAP
+========================================================= */
+
+.roadmap-project-root {
+  width: 360px;
+
+  min-height: 115px;
+
+  margin: 0 auto;
+
+  padding: 20px 30px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background: #eee9ff;
+
+  border: 3px solid #6d5acb;
+
+  border-radius: 18px;
+
+  color: #30256e;
+
+  box-shadow:
+          0 7px 20px rgba(109, 90, 203, 0.13);
+}
+
+.root-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+.roadmap-project-root strong {
+  font-size: 20px;
+
+  line-height: 1.25;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   PROJECT → WAVE VERTICAL LINE
+========================================================= */
+
+.project-to-waves-line {
+  width: 3px;
+
+  height: 50px;
+
+  margin: 0 auto;
+
+  background: #6d5acb;
+}
+
+
+/* =========================================================
+   WAVE GRID
+========================================================= */
+
+.roadmap-waves {
+  --wave-width: 330px;
+  --wave-gap: 50px;
+
+  position: relative;
+
+  width: max-content;
+
+  min-width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      var(--wave-count),
+      var(--wave-width)
+    );
+
+  gap: var(--wave-gap);
+
+  padding-top: 45px;
+
+  box-sizing: border-box;
+}
+
+
+/*
+   Horizontal line connecting all wave branches.
+*/
+
+.roadmap-waves::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+
+  left: calc(
+          var(--wave-width) / 2
+  );
+
+  right: calc(
+          var(--wave-width) / 2
+  );
+
+  height: 3px;
+
+  background: #6d5acb;
+}
+
+
+/* =========================================================
+   WAVE COLUMN
+========================================================= */
+
+.roadmap-wave-column {
+  position: relative;
+
+  width: var(--wave-width);
+
+  box-sizing: border-box;
+
+  padding-top: 32px;
+}
+
+
+/*
+   Vertical branch from the horizontal line
+   into each wave.
+*/
+
+.wave-top-branch {
+  position: absolute;
+
+  top: 0;
+
+  left: 50%;
+
+  width: 3px;
+
+  height: 32px;
+
+  background: #6d5acb;
+
+  transform: translateX(-50%);
+}
+
+
+/* =========================================================
+   WAVE BOX
+========================================================= */
+
+.roadmap-wave-box {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  min-height: 110px;
+
+  padding: 18px 20px;
+
+  box-sizing: border-box;
+
+  background: #e9f7eb;
+
+  border: 3px solid #3b9b63;
+
+  border-radius: 16px;
+
+  color: #205b38;
+
+  text-align: center;
+
+  box-shadow:
+          0 6px 18px rgba(59, 155, 99, 0.11);
+}
+
+.roadmap-wave-box .wave-label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #2d8751;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+.wave-count {
+  display: block;
+
+  font-size: 19px;
+
+  line-height: 1.2;
+}
+
+.roadmap-wave-box p {
+  margin: 9px 0 0;
+
+  color: #46715a;
+
+  font-size: 13px;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   COMPONENT STACK
+========================================================= */
+
+.wave-components {
+  position: relative;
+
+  margin-top: 42px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+
+/*
+   Main vertical green line.
+*/
+
+.wave-components::before {
+  content: "";
+
+  position: absolute;
+
+  left: 23px;
+
+  top: -42px;
+
+  bottom: 39px;
+
+  width: 3px;
+
+  background: #3b9b63;
+}
+
+
+/* =========================================================
+   COMPONENT ROW
+========================================================= */
+
+.roadmap-component-row {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 84px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(200px, 1fr)
+    115px;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding-left: 50px;
+
+  box-sizing: border-box;
+}
+
+
+/*
+   Green branch from vertical line
+   into component box.
+*/
+
+.component-horizontal-line {
+  position: absolute;
+
+  left: 23px;
+
+  top: 50%;
+
+  width: 27px;
+
+  height: 3px;
+
+  background: #3b9b63;
+}
+
+
+/* =========================================================
+   COMPONENT BOX
+========================================================= */
+
+.roadmap-component-box {
+  min-height: 84px;
+
+  padding: 13px 17px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  background: #f0faef;
+
+  border: 3px solid #3b9b63;
+
+  border-radius: 14px;
+
+  color: #234d32;
+
+  box-shadow:
+          0 4px 12px rgba(59, 155, 99, 0.07);
+}
+
+.component-box-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #4d765c;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+.roadmap-component-box strong {
+  font-size: 15px;
+
+  line-height: 1.25;
+
+  overflow-wrap: anywhere;
+}
+
+.roadmap-component-box p {
+  margin: 5px 0 0;
+
+  color: #667085;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   RISK BOX
+========================================================= */
+
+.roadmap-risk-box {
+  position: relative;
+
+  min-height: 84px;
+
+  padding: 10px 8px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+  border: 3px solid;
+
+  border-radius: 13px;
+}
+
+
+/*
+   Component → Risk connector
+*/
+
+.roadmap-risk-box::before {
+  content: "";
+
+  position: absolute;
+
+  left: -17px;
+
+  top: 50%;
+
+  width: 14px;
+
+  height: 3px;
+
+  background: currentColor;
+}
+
+.risk-box-label {
+  display: block;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+}
+
+.roadmap-risk-box strong {
+  display: block;
+
+  margin: 3px 0;
+
+  font-size: 18px;
+
+  line-height: 1;
+}
+
+.roadmap-risk-box small {
+  display: block;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   HIGH RISK
+========================================================= */
+
+.risk-high {
+  color: #b42318;
+
+  border-color: #e76f64;
+
+  background: #fff0ee;
+}
+
+
+/* =========================================================
+   MEDIUM RISK
+========================================================= */
+
+.risk-medium {
+  color: #a15c00;
+
+  border-color: #e5a43b;
+
+  background: #fff7e6;
+}
+
+
+/* =========================================================
+   LOW RISK
+========================================================= */
+
+.risk-low {
+  color: #157347;
+
+  border-color: #65b88a;
+
+  background: #edf9f1;
+}
+
+
+/* =========================================================
+   UNKNOWN RISK
+========================================================= */
+
+.risk-unknown {
+  color: #475467;
+
+  border-color: #98a2b3;
+
+  background: #f2f4f7;
+}
+
+
+/* =========================================================
+   EMPTY STATES
+========================================================= */
+
+.roadmap-empty {
+  padding: 70px 30px;
+
+  text-align: center;
+
+  color: #667085;
+}
+
+.roadmap-empty-page {
+  max-width: 700px;
+
+  margin: 100px auto;
+
+  padding: 40px;
+
+  text-align: center;
+
+  background: white;
+
+  border-radius: 14px;
+
+  box-shadow:
+          0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.no-components {
+  padding: 18px;
+
+  background: #f8faf9;
+
+  border: 1px dashed #b7c7bc;
+
+  border-radius: 10px;
+
+  color: #667085;
+
+  text-align: center;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   HOW TO READ ROADMAP
+========================================================= */
+
+.roadmap-help {
+  margin-top: 35px;
+
+  padding: 28px;
+
+  background: white;
+
+  border: 1px solid #e2e7e1;
+
+  border-radius: 14px;
+
+  box-shadow:
+          0 3px 15px rgba(0, 0, 0, 0.04);
+}
+
+.roadmap-help h2 {
+  margin: 0 0 20px;
+
+  font-size: 23px;
+}
+
+.help-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 15px;
+}
+
+.help-item {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 16px;
+
+  background: #f7f8f7;
+
+  border-radius: 10px;
+}
+
+.help-number {
+  width: 30px;
+
+  height: 30px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #46ca33;
+
+  color: white;
+
+  border-radius: 50%;
+
+  font-weight: 800;
+}
+
+.help-item strong {
+  display: block;
+
+  margin-bottom: 4px;
+}
+
+.help-item p {
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TECHNICAL DOCUMENTATION
+========================================================= */
+
+.documentation-page {
+  max-width: 950px;
+
+  margin: 0 auto;
+
+  padding: 40px 30px 80px;
+}
+
+.back-button {
+  width: auto;
+
+  border: none;
+
+  background: none;
+
+  color: #399c2b;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  padding: 0;
+
+  margin-bottom: 35px;
+}
+
+.documentation-header h1 {
+  font-size: 38px;
+
+  margin: 5px 0 10px;
+}
+
+.documentation-header > p:last-child {
+  color: #666;
+
+  line-height: 1.6;
+}
+
+.documentation-content {
+  margin-top: 35px;
+}
+
+.documentation-content section {
+  padding: 25px 0;
+
+  border-bottom:
+          1px solid #e5e7eb;
+}
+
+.documentation-content h2 {
+  font-size: 24px;
+}
+
+.documentation-content p {
+  color: #555;
+
+  line-height: 1.7;
+}
+
+.technical-flow {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    );
+
+  gap: 12px;
+
+  margin-top: 18px;
+}
+
+.technical-card {
+  padding: 18px;
+
+  border:
+          1px solid #e2e7e1;
+
+  border-radius: 10px;
+
+  background: #fafbfa;
+}
+
+.technical-card h3 {
+  margin-top: 0;
+}
+
+.technical-card p,
+.technical-card li {
+  font-size: 13px;
+}
+
+.rule-box {
+  display: flex;
+
+  gap: 12px;
+
+  padding: 15px;
+
+  margin-top: 10px;
+
+  border-radius: 8px;
+
+  background: #f5f7f6;
+}
+
+.rule-box strong {
+  min-width: 150px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .summary-cards {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .roadmap-page {
+    width: calc(100% - 35px);
+  }
+
+  .help-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 800px) {
+
+  .roadmap-header {
+    flex-direction: column;
+  }
+
+  .roadmap-counters {
+    width: 100%;
+  }
+
+  .roadmap-counters > div {
+    flex: 1;
+  }
+
+  .migration-wave-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .wave-summary {
+    flex-direction: column;
+
+    gap: 5px;
+  }
+
+  .roadmap-navigation {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .view-roadmap-button {
+    width: auto;
+  }
+
+  .roadmap-page-header h1 {
+    font-size: 32px;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmap-page {
+    width: calc(100% - 20px);
+
+    padding-top: 25px;
+  }
+
+  .roadmap-diagram-scroll {
+    padding-left: 20px;
+
+    padding-right: 20px;
+  }
+
+  .roadmap-project-root {
+    width: 300px;
+  }
+
+  .roadmap-waves {
+    --wave-width: 290px;
+
+    --wave-gap: 35px;
+  }
+
+  .roadmap-component-row {
+    grid-template-columns:
+      minmax(175px, 1fr)
+      100px;
+  }
+
+  .roadmap-help {
+    padding: 20px;
+  }
+
+  .documentation-page {
+    padding:
+            25px
+            15px
+            60px;
+  }
+}
+
+
+@media (max-width: 450px) {
+
+  .roadmap-page-header h1 {
+    font-size: 28px;
+  }
+
+  .roadmap-project-root {
+    width: 270px;
+  }
+
+  .roadmap-waves {
+    --wave-width: 270px;
+
+    --wave-gap: 25px;
+  }
+
+  .roadmap-component-row {
+    grid-template-columns:
+      1fr 95px;
+
+    gap: 10px;
+
+    padding-left: 45px;
+  }
+
+  .roadmap-component-box {
+    padding: 12px;
+  }
+
+  .roadmap-risk-box {
+    padding: 8px 5px;
+  }
 }

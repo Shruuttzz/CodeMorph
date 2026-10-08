@@ -1,0 +1,849 @@
+/* =========================================================
+   MIGRATION ROADMAP PAGE
+========================================================= */
+
+.mr-page {
+    width: calc(100% - 80px);
+    max-width: 1500px;
+
+    margin: 0 auto;
+
+    padding: 45px 0 80px;
+
+    color: #111827;
+
+    font-family:
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.mr-header {
+    margin-bottom: 10px;
+}
+
+.mr-eyebrow {
+    margin-bottom: 7px;
+
+    color: #2f9e44;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+.mr-header h1 {
+    margin: 0 0 10px;
+
+    font-size: 38px;
+
+    line-height: 1.15;
+}
+
+.mr-header p {
+    max-width: 850px;
+
+    margin: 0;
+
+    color: #667085;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.mr-back-button {
+    width: auto !important;
+
+    margin: 20px 0 25px !important;
+
+    padding: 11px 18px !important;
+
+    background: #46ca33 !important;
+
+    border: none !important;
+
+    border-radius: 8px !important;
+
+    color: white !important;
+
+    font-size: 14px !important;
+
+    font-weight: 600 !important;
+
+    cursor: pointer;
+}
+
+.mr-back-button:hover {
+    background: #35ad25 !important;
+}
+
+
+/* =========================================================
+   MAIN DIAGRAM CARD
+========================================================= */
+
+.mr-diagram-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe5e1;
+
+    border-radius: 20px;
+
+    box-shadow:
+            0 8px 30px rgba(0, 0, 0, 0.06);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   DOCUMENTATION BUTTON
+========================================================= */
+
+.mr-toolbar {
+    width: 100%;
+
+    padding: 22px 25px 0;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    justify-content: flex-start;
+}
+
+.mr-documentation-button {
+    width: auto !important;
+
+    margin: 0 !important;
+
+    padding: 11px 18px !important;
+
+    background: #172554 !important;
+
+    border: none !important;
+
+    border-radius: 8px !important;
+
+    color: white !important;
+
+    font-size: 14px !important;
+
+    font-weight: 700 !important;
+
+    cursor: pointer;
+}
+
+.mr-documentation-button:hover {
+    background: #1e3a8a !important;
+}
+
+
+/* =========================================================
+   DIAGRAM SCROLL
+========================================================= */
+
+.mr-scroll {
+    width: 100%;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+
+    padding: 55px 55px 80px;
+
+    box-sizing: border-box;
+}
+
+
+/*
+    This is important.
+
+    The diagram is allowed to become wider
+    than the browser when there are many waves.
+
+    The user can scroll horizontally.
+*/
+
+.mr-diagram {
+    width: max-content;
+
+    min-width: 100%;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PROJECT ROOT
+========================================================= */
+
+.mr-project {
+    width: 370px;
+
+    min-height: 120px;
+
+    margin: 0 auto;
+
+    padding: 22px 30px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    background: #eee9ff;
+
+    border: 3px solid #6d5acb;
+
+    border-radius: 18px;
+
+    color: #30256e;
+
+    box-shadow:
+            0 8px 22px rgba(109, 90, 203, 0.15);
+}
+
+.mr-project span {
+    margin-bottom: 8px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+}
+
+.mr-project strong {
+    font-size: 20px;
+
+    line-height: 1.25;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   PROJECT → WAVE
+========================================================= */
+
+.mr-root-line {
+    width: 3px;
+
+    height: 55px;
+
+    margin: 0 auto;
+
+    background: #6d5acb;
+}
+
+
+/* =========================================================
+   WAVE GRID
+========================================================= */
+
+.mr-waves {
+    --wave-width: 330px;
+
+    --wave-gap: 55px;
+
+    position: relative;
+
+    width: max-content;
+
+    min-width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            var(--wave-count),
+            var(--wave-width)
+        );
+
+    gap: var(--wave-gap);
+
+    padding-top: 45px;
+
+    box-sizing: border-box;
+}
+
+
+/*
+    Horizontal purple line.
+
+    This line is the parent branch from
+    the project into every wave.
+*/
+
+.mr-waves::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: calc(
+            var(--wave-width) / 2
+    );
+
+    right: calc(
+            var(--wave-width) / 2
+    );
+
+    height: 3px;
+
+    background: #6d5acb;
+}
+
+
+/* =========================================================
+   WAVE COLUMN
+========================================================= */
+
+.mr-wave-column {
+    position: relative;
+
+    width: var(--wave-width);
+
+    padding-top: 32px;
+
+    box-sizing: border-box;
+}
+
+
+/*
+    Purple branch into the wave.
+*/
+
+.mr-wave-branch {
+    position: absolute;
+
+    top: 0;
+
+    left: 50%;
+
+    width: 3px;
+
+    height: 32px;
+
+    background: #6d5acb;
+
+    transform: translateX(-50%);
+}
+
+
+/* =========================================================
+   WAVE BOX
+========================================================= */
+
+.mr-wave {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    min-height: 110px;
+
+    padding: 18px 20px;
+
+    box-sizing: border-box;
+
+    background: #e9f7eb;
+
+    border: 3px solid #3b9b63;
+
+    border-radius: 16px;
+
+    color: #205b38;
+
+    text-align: center;
+
+    box-shadow:
+            0 7px 20px rgba(59, 155, 99, 0.12);
+}
+
+.mr-wave-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #2d8751;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+}
+
+.mr-wave strong {
+    display: block;
+
+    font-size: 19px;
+}
+
+.mr-wave p {
+    margin: 8px 0 0;
+
+    color: #46715a;
+
+    font-size: 13px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   COMPONENT STACK
+========================================================= */
+
+.mr-components {
+    position: relative;
+
+    margin-top: 42px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+}
+
+
+/*
+    Main vertical line for files.
+*/
+
+.mr-components::before {
+    content: "";
+
+    position: absolute;
+
+    top: -42px;
+
+    bottom: 40px;
+
+    left: 23px;
+
+    width: 3px;
+
+    background: #3b9b63;
+}
+
+
+/* =========================================================
+   COMPONENT ROW
+========================================================= */
+
+.mr-component-row {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 88px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(205px, 1fr)
+        115px;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding-left: 50px;
+
+    box-sizing: border-box;
+}
+
+
+/*
+    Vertical file line → file box.
+*/
+
+.mr-component-branch {
+    position: absolute;
+
+    left: 23px;
+
+    top: 50%;
+
+    width: 27px;
+
+    height: 3px;
+
+    background: #3b9b63;
+}
+
+
+/* =========================================================
+   COMPONENT BOX
+========================================================= */
+
+.mr-component {
+    min-height: 88px;
+
+    padding: 14px 17px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    background: #f0faef;
+
+    border: 3px solid #3b9b63;
+
+    border-radius: 14px;
+
+    color: #234d32;
+
+    box-shadow:
+            0 4px 13px rgba(59, 155, 99, 0.08);
+}
+
+.mr-component > span {
+    margin-bottom: 5px;
+
+    color: #4d765c;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+}
+
+.mr-component > strong {
+    font-size: 15px;
+
+    line-height: 1.25;
+
+    overflow-wrap: anywhere;
+}
+
+.mr-component > p {
+    margin: 5px 0 0;
+
+    color: #667085;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   RISK BOX
+========================================================= */
+
+.mr-risk {
+    position: relative;
+
+    min-height: 88px;
+
+    padding: 10px 8px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    border: 3px solid;
+
+    border-radius: 13px;
+}
+
+
+/*
+    Component → Risk line
+*/
+
+.mr-risk::before {
+    content: "";
+
+    position: absolute;
+
+    left: -17px;
+
+    top: 50%;
+
+    width: 14px;
+
+    height: 3px;
+
+    background: currentColor;
+}
+
+.mr-risk > span {
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+}
+
+.mr-risk > strong {
+    margin: 4px 0;
+
+    font-size: 18px;
+
+    line-height: 1;
+}
+
+.mr-risk > small {
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   RISK COLORS
+========================================================= */
+
+.mr-risk-high {
+    color: #b42318;
+
+    border-color: #e76f64;
+
+    background: #fff0ee;
+}
+
+.mr-risk-medium {
+    color: #a15c00;
+
+    border-color: #e5a43b;
+
+    background: #fff7e6;
+}
+
+.mr-risk-low {
+    color: #157347;
+
+    border-color: #65b88a;
+
+    background: #edf9f1;
+}
+
+.mr-risk-unknown {
+    color: #475467;
+
+    border-color: #98a2b3;
+
+    background: #f2f4f7;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.mr-empty-page {
+    max-width: 700px;
+
+    margin: 100px auto;
+
+    padding: 40px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow:
+            0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.mr-empty-page button {
+    width: auto;
+
+    margin-top: 20px;
+
+    padding: 11px 18px;
+}
+
+
+/* =========================================================
+   HELP
+========================================================= */
+
+.mr-help {
+    margin-top: 35px;
+
+    padding: 28px;
+
+    background: white;
+
+    border: 1px solid #e2e7e1;
+
+    border-radius: 14px;
+
+    box-shadow:
+            0 3px 15px rgba(0, 0, 0, 0.04);
+}
+
+.mr-help h2 {
+    margin: 0 0 20px;
+
+    font-size: 23px;
+}
+
+.mr-help-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.mr-help-grid > div {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 16px;
+
+    background: #f7f8f7;
+
+    border-radius: 10px;
+}
+
+.mr-help-grid > div > span {
+    width: 30px;
+
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #46ca33;
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-weight: 800;
+}
+
+.mr-help-grid strong {
+    display: block;
+
+    margin-bottom: 4px;
+}
+
+.mr-help-grid p {
+    margin: 0;
+
+    color: #667085;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .mr-page {
+        width: calc(100% - 35px);
+    }
+
+    .mr-help-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mr-header h1 {
+        font-size: 32px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .mr-page {
+        width: calc(100% - 20px);
+
+        padding-top: 25px;
+    }
+
+    .mr-scroll {
+        padding-left: 25px;
+
+        padding-right: 25px;
+    }
+
+    .mr-project {
+        width: 290px;
+    }
+
+    .mr-waves {
+        --wave-width: 290px;
+
+        --wave-gap: 35px;
+    }
+
+    .mr-component-row {
+        grid-template-columns:
+            minmax(175px, 1fr)
+            100px;
+    }
+
+    .mr-help {
+        padding: 20px;
+    }
+}

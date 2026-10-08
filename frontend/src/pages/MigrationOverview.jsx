@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useProject } from "../context/ProjectContext";
 
+
 export default function MigrationOverview() {
     const navigate = useNavigate();
 
@@ -9,7 +10,10 @@ export default function MigrationOverview() {
     const { projectResult } = useProject();
 
     const result = projectResult;
-    const summary = result?.migrationSummary;
+
+    const summary =
+        result?.migrationSummary;
+
 
 
     // =========================
@@ -210,6 +214,8 @@ export default function MigrationOverview() {
                         </thead>
 
 
+
+
                         <tbody>
 
                         {result.componentAnalyses?.map(
@@ -305,6 +311,8 @@ export default function MigrationOverview() {
                                                 )
                                                 : "—"}
 
+
+
                                         </span>
 
                                     </td>
@@ -317,6 +325,32 @@ export default function MigrationOverview() {
                         </tbody>
 
                     </table>
+
+                </div>
+
+                <div className="roadmap-navigation">
+
+                    <div>
+                        <h2>
+                            Ready to plan the migration?
+                        </h2>
+
+                        <p>
+                            See the recommended migration
+                            order in a simple visual roadmap.
+                        </p>
+                    </div>
+
+                    <button
+                        className="view-roadmap-button"
+                        onClick={() =>
+                            navigate(
+                                "/migration-roadmap"
+                            )
+                        }
+                    >
+                        View Migration Roadmap →
+                    </button>
 
                 </div>
 

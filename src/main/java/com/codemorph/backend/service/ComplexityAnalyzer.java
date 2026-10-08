@@ -92,7 +92,6 @@ public class ComplexityAnalyzer {
         count += clazz.findAll(WhileStmt.class).size();
         count += clazz.findAll(CatchClause.class).size();
         count += clazz.findAll(ConditionalExpr.class).size();
-
         return count;
     }
 

@@ -1,15 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import "./App.css"
 import Login from "./pages/Login";
 import Upload from "./pages/Upload";
 import DependencyGraphPage from "./pages/DependencyGraphPage";
 import MigrationOverview from "./pages/MigrationOverview";
-
-import { ProjectProvider } from "./context/ProjectContext";
+import MigrationRoadmap from "./pages/MigrationRoadmap";
+import MigrationRoadmapDocumentation from "./pages/MigrationRoadmapDocumentation";
 import Analysis from "./pages/analysis";
 
+import { ProjectProvider } from "./context/ProjectContext";
+
 function App() {
+
     return (
+
         <ProjectProvider>
 
             <BrowserRouter>
@@ -37,10 +41,21 @@ function App() {
                     />
 
                     <Route
+                        path="/migration-roadmap"
+                        element={<MigrationRoadmap />}
+                    />
+
+                    <Route
+                        path="/migration-roadmap/documentation"
+                        element={
+                            <MigrationRoadmapDocumentation />
+                        }
+                    />
+
+                    <Route
                         path="/analysis"
                         element={<Analysis />}
                     />
-
 
                 </Routes>
 

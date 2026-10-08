@@ -74,7 +74,6 @@ public class DependencyGraphService {
          * Find every Java file inside the repository.
          */
         try (Stream<Path> walk = Files.walk(repoRoot)) {
-
             javaFiles = walk
                     .filter(p -> p.toString().endsWith(".java"))
                     .toList();
@@ -102,18 +101,13 @@ public class DependencyGraphService {
         List<CompilationUnit> parsedUnits = new ArrayList<>();
 
         for (Path file : javaFiles) {
-
             try {
-
                 CompilationUnit cu = StaticJavaParser.parse(file);
-
                 parsedUnits.add(cu);
-
                 cu.findAll(ClassOrInterfaceDeclaration.class)
                         .forEach(c ->
                                 knownClasses.add(c.getNameAsString())
                         );
-
             } catch (Exception ignored) {
 
                 /*

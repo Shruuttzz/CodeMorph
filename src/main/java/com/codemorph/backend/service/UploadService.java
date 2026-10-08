@@ -3,6 +3,8 @@ package com.codemorph.backend.service;
 import com.codemorph.backend.model.ComponentAnalysis;
 import com.codemorph.backend.model.MigrationSummary;
 import com.codemorph.backend.model.ProjectSummary;
+import com.codemorph.backend.model.roadmap.MigrationRoadmap;
+import com.codemorph.backend.service.roadmap.MigrationRoadmapService;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
@@ -28,6 +30,7 @@ public class UploadService {
     private final MetricNormalizationService normalizationService;
     private final MigrationImpactAnalyzer migrationImpactAnalyzer;
     private final MigrationSummaryService migrationSummaryService;
+    private final MigrationRoadmapService migrationRoadmapService;
 
     public UploadService(
             AstService astService,
@@ -37,7 +40,8 @@ public class UploadService {
             CentralityAnalyzer centralityAnalyzer,
             MetricNormalizationService normalizationService,
             MigrationImpactAnalyzer migrationImpactAnalyzer,
-            MigrationSummaryService migrationSummaryService) {
+            MigrationSummaryService migrationSummaryService,
+            MigrationRoadmapService migrationRoadmapService) {
 
         this.astService = astService;
         this.dependencyGraphService = dependencyGraphService;
@@ -47,6 +51,7 @@ public class UploadService {
         this.normalizationService = normalizationService;
         this.migrationImpactAnalyzer = migrationImpactAnalyzer;
         this.migrationSummaryService = migrationSummaryService;
+        this.migrationRoadmapService = migrationRoadmapService;
     }
 
     public ProjectSummary processZip(MultipartFile file) throws IOException {
@@ -171,7 +176,6 @@ public class UploadService {
                 );
 
         summary.setAstAnalysis(astResults);
-
         summary.setDependencyGraph(graphJson);
 
 
@@ -194,9 +198,7 @@ public class UploadService {
                             .toList();
 
             for (Path javaFile : javaPaths) {
-
                 try {
-
                     CompilationUnit compilationUnit =
                             StaticJavaParser.parse(javaFile);
 
@@ -215,9 +217,7 @@ public class UploadService {
                          * Path relative to uploaded repository.
                          */
                         String sourceFile =
-                                tempDir
-                                        .relativize(javaFile)
-                                        .toString();
+                                tempDir.relativize(javaFile).toString();
 
                         ComponentAnalysis analysis =
                                 complexityAnalyzer.analyze(
@@ -315,15 +315,6 @@ public class UploadService {
          * ============================================================
          * STEP 13: MIGRATION SUMMARY
          * ============================================================
-         *
-         * Calculates:
-         *
-         * - Total components
-         * - High-risk components
-         * - Medium-risk components
-         * - Low-risk components
-         * - Average risk
-         * - Highest risk
          */
 
         MigrationSummary migrationSummary =
@@ -334,7 +325,29 @@ public class UploadService {
 
         /*
          * ============================================================
-         * STEP 14: ATTACH ANALYSIS TO PROJECT SUMMARY
+         * STEP 14: MIGRATION ROADMAP
+         * ============================================================
+         *
+         * Uses:
+         *
+         * - Existing dependency graph
+         * - Existing impact score
+         * - Existing difficulty score
+         * - Existing risk score
+         *
+         * Nothing is recalculated here.
+         */
+
+        MigrationRoadmap migrationRoadmap =
+                migrationRoadmapService.generateRoadmap(
+                        graph,
+                        components
+                );
+
+
+        /*
+         * ============================================================
+         * STEP 15: ATTACH ANALYSIS TO PROJECT SUMMARY
          * ============================================================
          */
 
@@ -346,7 +359,9 @@ public class UploadService {
                 migrationSummary
         );
 
-
+        summary.setMigrationRoadmap(
+                migrationRoadmap
+        );
         /*
          * ============================================================
          * FINAL RESULT

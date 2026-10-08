@@ -2,6 +2,7 @@ package com.codemorph.backend.model;
 
 import java.util.List;
 import java.util.Map;
+import com.codemorph.backend.model.roadmap.MigrationRoadmap;
 
 public class ProjectSummary {
 
@@ -11,12 +12,23 @@ public class ProjectSummary {
     private Map<String, Object> dependencyGraph;
     private List<ComponentAnalysis> componentAnalyses;
     private MigrationSummary migrationSummary;
+    private MigrationRoadmap migrationRoadmap;
 
     public ProjectSummary() {
     }
     public ProjectSummary(String projectName, int javaFileCount) {
         this.projectName = projectName;
         this.javaFileCount = javaFileCount;
+    }
+
+    public MigrationRoadmap getMigrationRoadmap() {
+        return migrationRoadmap;
+    }
+
+    public void setMigrationRoadmap(
+            MigrationRoadmap migrationRoadmap) {
+
+        this.migrationRoadmap = migrationRoadmap;
     }
 
     public List<ComponentAnalysis> getComponentAnalyses() {

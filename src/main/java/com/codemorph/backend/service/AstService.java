@@ -34,7 +34,6 @@ public class AstService {
 
         try {
             CompilationUnit cu = StaticJavaParser.parse(file);
-
             List<String> classNames = new ArrayList<>();
             List<String> methodNames = new ArrayList<>();
             List<String> deprecatedFound = new ArrayList<>();

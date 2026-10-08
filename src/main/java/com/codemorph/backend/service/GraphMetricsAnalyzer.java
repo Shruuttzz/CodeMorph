@@ -14,7 +14,6 @@ public class GraphMetricsAnalyzer {
     public void analyze(
             Graph<String, DefaultEdge> graph,
             List<ComponentAnalysis> components) {
-
         if (graph == null || graph.vertexSet().isEmpty()) {
             return;
         }
