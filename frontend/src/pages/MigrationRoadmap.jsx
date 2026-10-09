@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useProject } from "../context/ProjectContext";
 
 import "./MigrationRoadmapPage.css";
+import AiExplanationPanel from "../components/AiExplanationPanel";
 
 export default function MigrationRoadmapPage() {
     const navigate = useNavigate();
@@ -92,6 +93,16 @@ export default function MigrationRoadmapPage() {
             >
                 ← Back to Risk Overview
             </button>
+
+
+            {/* AI EXPLANATION PANEL */}
+            <AiExplanationPanel
+                context={JSON.stringify({
+                    projectName,
+                    roadmap
+                })}
+            />
+
 
 
             {/* =========================================

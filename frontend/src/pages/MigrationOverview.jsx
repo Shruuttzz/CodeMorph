@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useProject } from "../context/ProjectContext";
+import AiExplanationPanel from "../components/AiExplanationPanel";
 
 
 export default function MigrationOverview() {
@@ -75,6 +76,17 @@ export default function MigrationOverview() {
                 <h1 className="results-title">
                     Migration Risk Overview
                 </h1>
+
+                ```jsx
+                {/* AI EXPLANATION PANEL */}
+                <AiExplanationPanel
+                    context={JSON.stringify({
+                        projectName: result.projectName || "Migration Project",
+                        migrationSummary: summary,
+                        componentAnalyses: result.componentAnalyses
+                    })}
+                />
+                ```s
 
 
                 {/* =========================

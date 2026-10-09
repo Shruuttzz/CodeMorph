@@ -7,7 +7,7 @@ import MigrationOverview from "./pages/MigrationOverview";
 import MigrationRoadmap from "./pages/MigrationRoadmap";
 import MigrationRoadmapDocumentation from "./pages/MigrationRoadmapDocumentation";
 import Analysis from "./pages/analysis";
-
+import AiAssistant from "./components/AiAssistant";
 import { ProjectProvider } from "./context/ProjectContext";
 
 function App() {
@@ -55,6 +55,11 @@ function App() {
                     <Route
                         path="/analysis"
                         element={<Analysis />}
+                    />
+
+                    <Route
+                        path="/ai-assistant"
+                        element={<AiAssistant />}
                     />
 
                 </Routes>
