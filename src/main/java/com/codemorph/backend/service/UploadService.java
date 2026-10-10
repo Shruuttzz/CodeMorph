@@ -13,11 +13,16 @@ import org.jgrapht.graph.DefaultEdge;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.nio.file.*;
-import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+import java.io.InputStream;
+
+
 
 @Service
 public class UploadService {
@@ -31,6 +36,7 @@ public class UploadService {
     private final MigrationImpactAnalyzer migrationImpactAnalyzer;
     private final MigrationSummaryService migrationSummaryService;
     private final MigrationRoadmapService migrationRoadmapService;
+    private final ZipExtractionService zipExtractionService;
 
     public UploadService(
             AstService astService,
@@ -41,8 +47,9 @@ public class UploadService {
             MetricNormalizationService normalizationService,
             MigrationImpactAnalyzer migrationImpactAnalyzer,
             MigrationSummaryService migrationSummaryService,
-            MigrationRoadmapService migrationRoadmapService) {
-
+            MigrationRoadmapService migrationRoadmapService,
+            ZipExtractionService zipExtractionService
+    ) {
         this.astService = astService;
         this.dependencyGraphService = dependencyGraphService;
         this.complexityAnalyzer = complexityAnalyzer;
@@ -52,322 +59,222 @@ public class UploadService {
         this.migrationImpactAnalyzer = migrationImpactAnalyzer;
         this.migrationSummaryService = migrationSummaryService;
         this.migrationRoadmapService = migrationRoadmapService;
+        this.zipExtractionService = zipExtractionService;
     }
 
-    public ProjectSummary processZip(MultipartFile file) throws IOException {
+    public ProjectSummary processZip(MultipartFile file)
+            throws IOException {
 
-        /*
-         * ============================================================
-         * STEP 1: CREATE TEMPORARY DIRECTORY
-         * ============================================================
-         */
-
-        Path tempDir =
-                Files.createTempDirectory("uploadedProject");
-
-
-        /*
-         * ============================================================
-         * STEP 2: EXTRACT ZIP
-         * ============================================================
-         */
-
-        try (ZipInputStream zis =
-                     new ZipInputStream(file.getInputStream())) {
-
-            ZipEntry entry;
-
-            while ((entry = zis.getNextEntry()) != null) {
-
-                Path filePath =
-                        tempDir.resolve(entry.getName());
-
-                if (entry.isDirectory()) {
-
-                    Files.createDirectories(filePath);
-
-                } else {
-
-                    Files.createDirectories(
-                            filePath.getParent()
-                    );
-
-                    Files.copy(
-                            zis,
-                            filePath,
-                            StandardCopyOption.REPLACE_EXISTING
-                    );
-                }
-
-                zis.closeEntry();
-            }
+        if (file == null || file.isEmpty()) {
+            throw new IOException("Please upload a non-empty ZIP file.");
         }
 
+        String originalFilename = file.getOriginalFilename();
+
+        if (originalFilename == null
+                || !originalFilename.toLowerCase().endsWith(".zip")) {
+            throw new IOException("Invalid file type. Please upload a ZIP file.");
+        }
+
+        Path tempDir = Files.createTempDirectory("codemorph-project-");
 
         /*
-         * ============================================================
-         * STEP 3: COUNT JAVA FILES
-         * ============================================================
+         * STEP 1: Extract only relevant project files.
          */
+        try (InputStream input = file.getInputStream()) { {
+            zipExtractionService.extractRelevantFiles(input, tempDir);
+        }
 
-        int javaFiles =
-                (int) Files.walk(tempDir)
-                        .filter(path ->
-                                path.toString().endsWith(".java"))
+            /*
+             * STEP 2: Count Java files.
+             */
+            int javaFiles;
+
+            try (Stream<Path> paths = Files.walk(tempDir)) {
+                javaFiles = (int) paths
+                        .filter(Files::isRegularFile)
+                        .filter(path -> path.toString()
+                                .toLowerCase()
+                                .endsWith(".java"))
                         .count();
+            }
 
-
-        /*
-         * ============================================================
-         * STEP 4: PROJECT NAME
-         * ============================================================
-         */
-
-        String projectName =
-                file.getOriginalFilename();
-
-        if (projectName != null &&
-                projectName.endsWith(".zip")) {
-
-            projectName =
-                    projectName.substring(
-                            0,
-                            projectName.length() - 4
-                    );
-        }
-
-
-        /*
-         * ============================================================
-         * STEP 5: EXISTING AST ANALYSIS
-         * ============================================================
-         */
-
-        List<Map<String, Object>> astResults =
-                astService.analyzeRepository(tempDir);
-
-
-        /*
-         * ============================================================
-         * STEP 6: BUILD DEPENDENCY GRAPH
-         * ============================================================
-         *
-         * We build the JSON graph for the frontend AND
-         * obtain the actual JGraphT graph for backend analysis.
-         */
-
-        Map<String, Object> graphJson =
-                dependencyGraphService.buildGraph(tempDir);
-
-        Graph<String, DefaultEdge> graph =
-                dependencyGraphService.buildGraphObject(tempDir);
-
-
-        /*
-         * ============================================================
-         * STEP 7: CREATE PROJECT SUMMARY
-         * ============================================================
-         */
-
-        ProjectSummary summary =
-                new ProjectSummary(
-                        projectName,
-                        javaFiles
+            if (javaFiles == 0) {
+                throw new IOException(
+                        "No Java source files were found in the uploaded ZIP. "
+                                + "Make sure the ZIP contains your Java project source."
                 );
+            }
 
-        summary.setAstAnalysis(astResults);
-        summary.setDependencyGraph(graphJson);
+            /*
+             * STEP 3: Determine project name.
+             */
+            String projectName = originalFilename;
 
+            if (projectName.toLowerCase().endsWith(".zip")) {
+                projectName = projectName.substring(
+                        0,
+                        projectName.length() - 4
+                );
+            }
 
-        /*
-         * ============================================================
-         * STEP 8: COMPONENT COMPLEXITY ANALYSIS
-         * ============================================================
-         *
-         * Parse each Java file and analyze every class/interface.
-         */
+            /*
+             * STEP 4: AST analysis.
+             */
+            List<Map<String, Object>> astResults =
+                    astService.analyzeRepository(tempDir);
 
-        List<ComponentAnalysis> components =
-                new ArrayList<>();
+            /*
+             * STEP 5: Build dependency graph.
+             */
+            Map<String, Object> graphJson =
+                    dependencyGraphService.buildGraph(tempDir);
 
-        try (var walk = Files.walk(tempDir)) {
+            Graph<String, DefaultEdge> graph =
+                    dependencyGraphService.buildGraphObject(tempDir);
 
-            List<Path> javaPaths =
-                    walk.filter(path ->
-                                    path.toString().endsWith(".java"))
-                            .toList();
+            /*
+             * STEP 6: Initialize project summary.
+             */
+            ProjectSummary summary =
+                    new ProjectSummary(projectName, javaFiles);
 
-            for (Path javaFile : javaPaths) {
-                try {
-                    CompilationUnit compilationUnit =
-                            StaticJavaParser.parse(javaFile);
+            summary.setAstAnalysis(astResults);
+            summary.setDependencyGraph(graphJson);
 
-                    /*
-                     * Find every class/interface in this file.
-                     */
-                    List<ClassOrInterfaceDeclaration> classes =
-                            compilationUnit.findAll(
-                                    ClassOrInterfaceDeclaration.class
-                            );
+            /*
+             * STEP 7: Analyze Java classes and interfaces.
+             */
+            List<ComponentAnalysis> components = new ArrayList<>();
 
-                    for (ClassOrInterfaceDeclaration clazz :
-                            classes) {
+            try (Stream<Path> paths = Files.walk(tempDir)) {
 
-                        /*
-                         * Path relative to uploaded repository.
-                         */
-                        String sourceFile =
-                                tempDir.relativize(javaFile).toString();
+                List<Path> javaPaths = paths
+                        .filter(Files::isRegularFile)
+                        .filter(path -> path.toString()
+                                .toLowerCase()
+                                .endsWith(".java"))
+                        .toList();
 
-                        ComponentAnalysis analysis =
-                                complexityAnalyzer.analyze(
-                                        clazz,
-                                        compilationUnit,
-                                        sourceFile
+                for (Path javaFile : javaPaths) {
+                    try {
+                        CompilationUnit compilationUnit =
+                                StaticJavaParser.parse(javaFile);
+
+                        List<ClassOrInterfaceDeclaration> classes =
+                                compilationUnit.findAll(
+                                        ClassOrInterfaceDeclaration.class
                                 );
 
-                        components.add(analysis);
+                        for (ClassOrInterfaceDeclaration clazz : classes) {
+
+                            String sourceFile = tempDir
+                                    .relativize(javaFile)
+                                    .toString();
+
+                            ComponentAnalysis analysis =
+                                    complexityAnalyzer.analyze(
+                                            clazz,
+                                            compilationUnit,
+                                            sourceFile
+                                    );
+
+                            components.add(analysis);
+                        }
+
+                    } catch (Exception exception) {
+                        /*
+                         * Skip individual Java files that cannot be parsed.
+                         * One malformed file should not stop the entire
+                         * repository analysis.
+                         */
                     }
-
-                } catch (Exception ignored) {
-
-                    /*
-                     * If one file cannot be parsed, skip it.
-                     *
-                     * AstService already handles/report parse
-                     * failures, so one bad file should not stop
-                     * analysis of the entire repository.
-                     */
                 }
             }
+
+            /*
+             * STEP 8: Graph metrics.
+             */
+            graphMetricsAnalyzer.analyze(graph, components);
+
+            /*
+             * STEP 9: Centrality.
+             */
+            centralityAnalyzer.analyze(graph, components);
+
+            /*
+             * STEP 10: Normalize metrics.
+             */
+            normalizationService.normalize(components);
+
+            /*
+             * STEP 11: Calculate migration difficulty, impact and risk.
+             */
+            migrationImpactAnalyzer.calculate(components);
+
+            /*
+             * STEP 12: Calculate migration summary.
+             */
+            MigrationSummary migrationSummary =
+                    migrationSummaryService.calculate(components);
+
+            /*
+             * STEP 13: Generate migration roadmap.
+             */
+            MigrationRoadmap migrationRoadmap =
+                    migrationRoadmapService.generateRoadmap(
+                            graph,
+                            components
+                    );
+
+            /*
+             * STEP 14: Attach results.
+             */
+            summary.setComponentAnalyses(components);
+            summary.setMigrationSummary(migrationSummary);
+            summary.setMigrationRoadmap(migrationRoadmap);
+
+            return summary;
+
+        } finally {
+            /*
+             * Always clean up the temporary extracted project,
+             * including when analysis fails.
+             */
+            deleteDirectoryRecursively(tempDir);
+        }
+    }
+
+    private void deleteDirectoryRecursively(Path directory)
+            throws IOException {
+
+        if (directory == null || !Files.exists(directory)) {
+            return;
         }
 
+        try (Stream<Path> paths = Files.walk(directory)) {
+            List<Path> allPaths = paths
+                    .sorted((first, second) ->
+                            second.compareTo(first))
+                    .toList();
 
-        /*
-         * ============================================================
-         * STEP 9: GRAPH METRICS
-         * ============================================================
-         *
-         * Calculates:
-         *
-         * - Fan-in
-         * - Fan-out
-         * - Blast radius
-         */
+            IOException failure = null;
 
-        graphMetricsAnalyzer.analyze(
-                graph,
-                components
-        );
+            for (Path path : allPaths) {
+                try {
+                    Files.deleteIfExists(path);
+                } catch (IOException exception) {
+                    if (failure == null) {
+                        failure = exception;
+                    } else {
+                        failure.addSuppressed(exception);
+                    }
+                }
+            }
 
-
-        /*
-         * ============================================================
-         * STEP 10: CENTRALITY
-         * ============================================================
-         *
-         * Calculates PageRank centrality for every component.
-         */
-
-        centralityAnalyzer.analyze(
-                graph,
-                components
-        );
-
-
-        /*
-         * ============================================================
-         * STEP 11: NORMALIZATION
-         * ============================================================
-         *
-         * Calculates:
-         *
-         * - Complexity score
-         * - Migration issue score
-         *
-         * Graph metrics are normalized later inside
-         * MigrationImpactAnalyzer.
-         */
-
-        normalizationService.normalize(
-                components
-        );
-
-
-        /*
-         * ============================================================
-         * STEP 12: MIGRATION IMPACT / RISK
-         * ============================================================
-         *
-         * Calculates:
-         *
-         * - Difficulty
-         * - Impact
-         * - Risk
-         */
-
-        migrationImpactAnalyzer.calculate(
-                components
-        );
-
-
-        /*
-         * ============================================================
-         * STEP 13: MIGRATION SUMMARY
-         * ============================================================
-         */
-
-        MigrationSummary migrationSummary =
-                migrationSummaryService.calculate(
-                        components
-                );
-
-
-        /*
-         * ============================================================
-         * STEP 14: MIGRATION ROADMAP
-         * ============================================================
-         *
-         * Uses:
-         *
-         * - Existing dependency graph
-         * - Existing impact score
-         * - Existing difficulty score
-         * - Existing risk score
-         *
-         * Nothing is recalculated here.
-         */
-
-        MigrationRoadmap migrationRoadmap =
-                migrationRoadmapService.generateRoadmap(
-                        graph,
-                        components
-                );
-
-
-        /*
-         * ============================================================
-         * STEP 15: ATTACH ANALYSIS TO PROJECT SUMMARY
-         * ============================================================
-         */
-
-        summary.setComponentAnalyses(
-                components
-        );
-
-        summary.setMigrationSummary(
-                migrationSummary
-        );
-
-        summary.setMigrationRoadmap(
-                migrationRoadmap
-        );
-        /*
-         * ============================================================
-         * FINAL RESULT
-         * ============================================================
-         */
-
-        return summary;
+            if (failure != null) {
+                throw failure;
+            }
+        }
     }
 }
