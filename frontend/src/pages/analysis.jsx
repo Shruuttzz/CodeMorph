@@ -125,8 +125,8 @@ function Analysis() {
 
                         <table className="ast-table">
 
-                            <thead>
-                            <tr>
+                            <thead className="ast-table-heading">
+                            <tr >
                                 <th>File</th>
                                 <th>Status</th>
                                 <th>Classes</th>

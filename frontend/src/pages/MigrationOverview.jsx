@@ -77,16 +77,28 @@ export default function MigrationOverview() {
                     Migration Risk Overview
                 </h1>
 
-                ```jsx
+
                 {/* AI EXPLANATION PANEL */}
+
                 <AiExplanationPanel
                     context={JSON.stringify({
                         projectName: result.projectName || "Migration Project",
                         migrationSummary: summary,
-                        componentAnalyses: result.componentAnalyses
+                        componentAnalyses: result.componentAnalyses,
+                        highestRiskComponent: (result.componentAnalyses || [])
+                            .reduce(
+                                (highest, component) =>
+                                    !highest ||
+                                    Number(component.riskScore ?? -1) >
+                                    Number(highest.riskScore ?? -1)
+                                        ? component
+                                        : highest,
+                                null
+                            )
                     })}
                 />
-                ```s
+                ```
+
 
 
                 {/* =========================

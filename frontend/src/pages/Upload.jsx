@@ -6,9 +6,7 @@ import { useProject } from "../context/ProjectContext";
 function Upload() {
     const navigate = useNavigate();
     const { setProjectResult } = useProject();
-
     const fileInputRef = useRef(null);
-
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [dragActive, setDragActive] = useState(false);
@@ -38,7 +36,6 @@ function Upload() {
 
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
-
         handleFileSelect(selectedFile);
     };
 
@@ -62,9 +59,7 @@ function Upload() {
     const handleDrop = (event) => {
         event.preventDefault();
         setDragActive(false);
-
         const droppedFile = event.dataTransfer.files[0];
-
         handleFileSelect(droppedFile);
     };
 
@@ -135,7 +130,7 @@ function Upload() {
 
             <div className="upload-card">
 
-                <h1>
+                <h1 className= "upload-heading">
                     Upload Java Project
                 </h1>
 
@@ -179,13 +174,13 @@ function Upload() {
                                 {file.name}
                             </h2>
 
-                            <p className="upload-file-status">
+                            <p className="upload-file-name">
                                 ZIP file selected
                             </p>
                         </>
                     ) : (
                         <>
-                            <h2>
+                            <h2 className="inside-drop-down">
                                 Choose ZIP File
                             </h2>
 

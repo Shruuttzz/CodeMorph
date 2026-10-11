@@ -75,7 +75,7 @@
 
     padding: 11px 18px !important;
 
-    background: #46ca33 !important;
+    background: #0881a6 !important;
 
     border: none !important;
 
@@ -129,6 +129,7 @@
     display: flex;
 
     justify-content: flex-start;
+    background: #b5b2b2;
 }
 
 .mr-documentation-button {
@@ -164,7 +165,8 @@
 
 .mr-scroll {
     width: 100%;
-
+    background: #b5b2b2;
+;
     overflow-x: auto;
 
     overflow-y: hidden;
@@ -687,7 +689,7 @@
 
     padding: 40px;
 
-    background: white;
+    background: #b5b2b2;
 
     border-radius: 15px;
 
@@ -715,7 +717,7 @@
 
     padding: 28px;
 
-    background: white;
+    background: #b5b2b2;
 
     border: 1px solid #e2e7e1;
 
@@ -749,7 +751,7 @@
 
     padding: 16px;
 
-    background: #f7f8f7;
+    background: #b5b2b2;
 
     border-radius: 10px;
 }
@@ -797,18 +799,21 @@
    RESPONSIVE
 ========================================================= */
 
-@media (max-width: 900px) {
+@media  {
 
     .mr-page {
-        width: calc(100% - 35px);
+        /*width: calc(100% - 35px);*/
+        background: #b5b2b2;
     }
 
     .mr-help-grid {
         grid-template-columns: 1fr;
+        background: #b5b2b2;
     }
 
     .mr-header h1 {
         font-size: 32px;
+        background: #b5b2b2;
     }
 }
 
@@ -816,14 +821,14 @@
 @media (max-width: 600px) {
 
     .mr-page {
-        width: calc(100% - 20px);
-
+        /*width: calc(100% - 20px);*/
+        background: #b5b2b2;
         padding-top: 25px;
     }
 
     .mr-scroll {
         padding-left: 25px;
-
+        background: #b5b2b2;
         padding-right: 25px;
     }
 
@@ -833,7 +838,7 @@
 
     .mr-waves {
         --wave-width: 290px;
-
+        background: #b5b2b2;
         --wave-gap: 35px;
     }
 
@@ -846,4 +851,20 @@
     .mr-help {
         padding: 20px;
     }
+}
+
+/* Remove curved borders from roadmap sections */
+.mr-diagram-card,
+.mr-help {
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Keep the same grey background throughout */
+.mr-page,
+.mr-diagram-card,
+.mr-help,
+.mr-scroll {
+    background-color: #b5b2b2 !important;
 }

@@ -87,6 +87,14 @@ export default function MigrationRoadmapPage() {
             <button
                 type="button"
                 className="mr-back-button"
+                /*style={{
+                    backgroundColor: "#464a12",
+                    color: "#ffffff",
+                    border: "1px solid #36b9e4",
+                    borderRadius: "10px",
+                    padding: "12px 22px",
+                    cursor: "pointer"
+                }}*/
                 onClick={() =>
                     navigate("/migration-analysis")
                 }

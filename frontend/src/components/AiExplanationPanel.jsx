@@ -16,7 +16,17 @@ export default function AiExplanationPanel({ context = "" }) {
         setAnswer("");
 
         try {
-            const result = await sendAiMessage(prompt, context);
+            const result = await sendAiMessage(
+                `${prompt}
+
+IMPORTANT RULES:
+- Use the supplied analysis data as the source of truth.
+- When identifying the highest-risk component, use the highestRiskComponent object in the context.
+- Report its exact component name and riskScore.
+- Never substitute a different component name.
+- If the data is missing or inconsistent, say so instead of guessing.`,
+                context
+            );
             setAnswer(result.answer ?? "No answer was returned.");
             setProvider(result.provider ?? "AI");
         } catch (err) {
@@ -29,7 +39,7 @@ export default function AiExplanationPanel({ context = "" }) {
     return (
         <section className="ai-explanation">
             <button type="button" onClick={() => setOpen(!open)}>
-                ✨ {open ? "Hide AI Assistant" : "Explain with AI"}
+                 {open ? "Hide AI Assistant" : "Explain with AI"}
             </button>
 
             {open && (
