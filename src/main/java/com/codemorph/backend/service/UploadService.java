@@ -1,3 +1,4 @@
+
 package com.codemorph.backend.service;
 
 import com.codemorph.backend.model.ComponentAnalysis;
@@ -14,15 +15,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-import java.io.InputStream;
-
-
 
 @Service
 public class UploadService {
@@ -66,27 +65,34 @@ public class UploadService {
             throws IOException {
 
         if (file == null || file.isEmpty()) {
-            throw new IOException("Please upload a non-empty ZIP file.");
+            throw new IllegalArgumentException(
+                    "Please upload a non-empty ZIP file."
+            );
         }
 
         String originalFilename = file.getOriginalFilename();
 
         if (originalFilename == null
                 || !originalFilename.toLowerCase().endsWith(".zip")) {
-            throw new IOException("Invalid file type. Please upload a ZIP file.");
+            throw new IllegalArgumentException(
+                    "Invalid file type. Please upload a ZIP file."
+            );
         }
 
         Path tempDir = Files.createTempDirectory("codemorph-project-");
 
-        /*
-         * STEP 1: Extract only relevant project files.
-         */
-        try (InputStream input = file.getInputStream()) { {
-            zipExtractionService.extractRelevantFiles(input, tempDir);
-        }
+        try {
+            /*
+             * STEP 1: Extract relevant project files.
+             * Directory exclusions will be implemented in
+             * ZipExtractionService.java.
+             */
+            try (InputStream input = file.getInputStream()) {
+                zipExtractionService.extractRelevantFiles(input, tempDir);
+            }
 
             /*
-             * STEP 2: Count Java files.
+             * STEP 2: Validate Java source files.
              */
             int javaFiles;
 
@@ -100,9 +106,9 @@ public class UploadService {
             }
 
             if (javaFiles == 0) {
-                throw new IOException(
-                        "No Java source files were found in the uploaded ZIP. "
-                                + "Make sure the ZIP contains your Java project source."
+                throw new IllegalArgumentException(
+                        "No Java source files found in the uploaded ZIP. "
+                                + "Please upload a ZIP containing a Java project."
                 );
             }
 
@@ -113,8 +119,7 @@ public class UploadService {
 
             if (projectName.toLowerCase().endsWith(".zip")) {
                 projectName = projectName.substring(
-                        0,
-                        projectName.length() - 4
+                        0, projectName.length() - 4
                 );
             }
 
@@ -185,9 +190,13 @@ public class UploadService {
                     } catch (Exception exception) {
                         /*
                          * Skip individual Java files that cannot be parsed.
-                         * One malformed file should not stop the entire
-                         * repository analysis.
+                         * One malformed file should not stop the analysis.
                          */
+                        System.err.println(
+                                "Skipping unparseable Java file: "
+                                        + javaFile + " - "
+                                        + exception.getMessage()
+                        );
                     }
                 }
             }
@@ -238,8 +247,8 @@ public class UploadService {
 
         } finally {
             /*
-             * Always clean up the temporary extracted project,
-             * including when analysis fails.
+             * Always clean up the extracted project,
+             * whether analysis succeeds or fails.
              */
             deleteDirectoryRecursively(tempDir);
         }
@@ -253,6 +262,7 @@ public class UploadService {
         }
 
         try (Stream<Path> paths = Files.walk(directory)) {
+
             List<Path> allPaths = paths
                     .sorted((first, second) ->
                             second.compareTo(first))
